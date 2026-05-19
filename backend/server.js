@@ -25,6 +25,14 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: 'Internal server error' });
 });
 
+const path = require('path');
+
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+});
+
 // ── MongoDB + Start ──────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 5000;
 
